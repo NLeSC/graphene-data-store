@@ -7,7 +7,8 @@ import graphene
 from graphene import relay
 from graphene_sqlalchemy import SQLAlchemyConnectionField, SQLAlchemyObjectType
 
-from graphql import ResolveInfo
+import pandas as pd
+import numpy as np
 
 class Department(SQLAlchemyObjectType):
     class Meta:
@@ -62,13 +63,47 @@ class DataCell(graphene.ObjectType):
     @staticmethod
     def resolve_columns(self, info):
         # print(self.key_types)        
-        return self.raw.values()    
+        return self.raw.values()
+
+
+class HistCell(graphene.ObjectType):
+    freq = graphene.List(graphene.List(graphene.Int))
+    bins = graphene.List(JSONScalar)  
+
+    @staticmethod
+    def resolve_bins(self, info):
+        print('resolve_bins:')
+        print('\n')
+        # print(self.raw)
+        nBins = 3        
+        df = pd.DataFrame.from_dict (self.raw)
+        print (repr(df.info()))
+        # print (repr(df))    
+        print(pd.cut(df.x, nBins))
+        groups = df.groupby(pd.cut(df.x, nBins))
+        print(repr(groups.mean()))
+        # print(groups.mean().z)   
+
+        # return df.values.tolist()
+        return groups.mean().values.tolist()
+
+    @staticmethod
+    def resolve_freq(self, info):
+        print('resolve_freq:')
+        print('\n')
+        nBins = 3
+        df = pd.DataFrame.from_dict (self.raw)
+        print(pd.cut(df.x, nBins))
+        groups = df.groupby(pd.cut(df.x, nBins))
+        print(repr(groups.count()))
+        return groups.count().values.tolist()
 
 
 class Dataset(SQLAlchemyObjectType):
     # Return a list of section objects
     data = graphene.Field(DataCell)
-    
+    histograms = graphene.Field(HistCell)    
+
     class Meta:
         model = DatasetModel
         interfaces = (relay.Node, )
@@ -80,6 +115,13 @@ class Dataset(SQLAlchemyObjectType):
     def resolve_data(parent, info):
         # if dataset_name:
         #     print(parent)       
+        return parent
+
+    @staticmethod
+    def resolve_histograms(parent, info):
+        # if dataset_name:
+        #     print(parent)
+        # print(parent)
         return parent
 
 class Query(graphene.ObjectType):

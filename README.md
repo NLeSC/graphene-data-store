@@ -41,6 +41,7 @@ and run queries!
       node {
         id
         name
+        description
         raw
       }
     }
@@ -93,15 +94,15 @@ variables:
   dataset (id:"RGF0YXNldDox") {
     id
     name
+    raw
     data {
       columns
       columnNames
       columnTypes
     }
-    histograms (nbins: 20) {
-      columns
+    histograms {
+      bins
       freq
     }
-    raw
   }
 }

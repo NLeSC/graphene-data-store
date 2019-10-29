@@ -37,18 +37,20 @@ def init_db():
     db_session.add(tracy)
 
     # Dataset
-    from random import randint, random
+    import random
+    from random import randint
     from faker import Faker
     fake = Faker('en_US')
-    nPoints = 100
+    nPoints = 11
 
-    data = {'x': [randint(0, 1000) for i in range(nPoints)], 'z': [random() for i in range(nPoints)], 'names': [fake.name() for i in range(nPoints)] }
+    # data = {'x': [randint(0, 1000) for i in range(nPoints)], 'z': [float(random.randrange(0, 1000))/100 for i in range(nPoints)], 'names': [fake.name() for i in range(nPoints)] }
+    data = {'x': [int(i) for i in range(nPoints)], 'z': [float(i) for i in range(nPoints)], 'names': [fake.name() for i in range(nPoints)] }    
     test_data1 = Dataset(name='dataset1', description='First dataset', table_name='data1', enabled=True, raw=data)
     db_session.add(test_data1)
 
-    data = {'x': [randint(0, 1000) for i in range(nPoints)], 'z': [random() for i in range(nPoints)], 'names': [fake.name() for i in range(nPoints)] }
-    test_data2 = Dataset(name='dataset2', description='Second dataset', table_name='data2', enabled=False, raw=data)
-    db_session.add(test_data2)
+    # data = {'x': [randint(0, 1000) for i in range(nPoints)], 'z': [float(random.randrange(0, 1000))/100 for i in range(nPoints)], 'names': [fake.name() for i in range(nPoints)] }
+    # test_data2 = Dataset(name='dataset2', description='Second dataset', table_name='data2', enabled=False, raw=data)
+    # db_session.add(test_data2)
 
 
     db_session.commit()

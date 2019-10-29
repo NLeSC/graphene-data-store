@@ -1,5 +1,5 @@
 from database import Base
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Boolean, ARRAY, JSON, func
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Boolean, ARRAY, JSON, DateTime, func
 from sqlalchemy.orm import backref, relationship
 
 
@@ -43,6 +43,6 @@ class Dataset(Base):
     name = Column(String)
     description = Column(String)
     table_name = Column(String)
-    is_active = Column(Boolean)
-    # created_at = Column(DateTime)
+    enabled = Column(Boolean)
+    created_at = Column(DateTime)
     raw = Column(JSON)
