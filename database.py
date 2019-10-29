@@ -37,11 +37,17 @@ def init_db():
     db_session.add(tracy)
 
     # Dataset
-    data = {"x": [1, 2, 3], "y": [4.2, 5.7, 6.3], "category": ['a', 'b', 'c']}
-    test_data1 = Dataset(name='dataset1', description='First dataset', table_name='data1', is_active=True, raw=data)
+    from random import randint, random
+    from faker import Faker
+    fake = Faker('en_US')
+    nPoints = 100
+
+    data = {'x': [randint(0, 1000) for i in range(nPoints)], 'z': [random() for i in range(nPoints)], 'names': [fake.name() for i in range(nPoints)] }
+    test_data1 = Dataset(name='dataset1', description='First dataset', table_name='data1', enabled=True, raw=data)
     db_session.add(test_data1)
-    data = {"x": [1.1, 2.3, 3], "y": [4, 5, 6]}    
-    test_data2 = Dataset(name='dataset2', description='Second dataset', table_name='data2', is_active=False, raw=data)
+
+    data = {'x': [randint(0, 1000) for i in range(nPoints)], 'z': [random() for i in range(nPoints)], 'names': [fake.name() for i in range(nPoints)] }
+    test_data2 = Dataset(name='dataset2', description='Second dataset', table_name='data2', enabled=False, raw=data)
     db_session.add(test_data2)
 
 
