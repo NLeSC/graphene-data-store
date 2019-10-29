@@ -38,10 +38,10 @@ def init_db():
 
     # Dataset
     data = {"x": [1, 2, 3], "y": [4.2, 5.7, 6.3], "category": ['a', 'b', 'c']}
-    test_data1 = Dataset(name='dataset1', description='First dataset', table_name='data1', is_active=True, data=data)
+    test_data1 = Dataset(name='dataset1', description='First dataset', table_name='data1', is_active=True, raw=data)
     db_session.add(test_data1)
     data = {"x": [1.1, 2.3, 3], "y": [4, 5, 6]}    
-    test_data2 = Dataset(name='dataset2', description='Second dataset', table_name='data2', is_active=False, data=data)
+    test_data2 = Dataset(name='dataset2', description='Second dataset', table_name='data2', is_active=False, raw=data)
     db_session.add(test_data2)
 
 

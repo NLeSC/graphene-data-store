@@ -45,4 +45,4 @@ class Dataset(Base):
     table_name = Column(String)
     is_active = Column(Boolean)
     # created_at = Column(DateTime)
-    data = Column(JSON)
+    raw = Column(JSON)

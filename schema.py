@@ -47,27 +47,27 @@ class JSONScalar(graphene.Scalar):
 
 
 class DataCell(graphene.ObjectType):
-    key_types = graphene.List(graphene.String)
-    key_names = graphene.List(graphene.String)
-    key_data = graphene.List(JSONScalar)    
+    column_types = graphene.List(graphene.String)
+    column_names = graphene.List(graphene.String)
+    columns = graphene.List(JSONScalar)    
 
     @staticmethod
-    def resolve_key_types(self, info):
-        return [type(d[0]).__name__ for d in self.data.values()]
+    def resolve_column_types(self, info):
+        return [type(d[0]).__name__ for d in self.raw.values()]
 
     @staticmethod
-    def resolve_key_names(self, info):
-        return self.data
+    def resolve_column_names(self, info):
+        return self.raw
 
     @staticmethod
-    def resolve_key_data(self, info):
+    def resolve_columns(self, info):
         # print(self.key_types)        
-        return self.data.values()    
+        return self.raw.values()    
 
 
 class Dataset(SQLAlchemyObjectType):
     # Return a list of section objects
-    items = graphene.Field(DataCell)
+    data = graphene.Field(DataCell)
     
     class Meta:
         model = DatasetModel
@@ -77,7 +77,7 @@ class Dataset(SQLAlchemyObjectType):
         }
 
     @staticmethod
-    def resolve_items(parent, info):
+    def resolve_data(parent, info):
         # if dataset_name:
         #     print(parent)       
         return parent
