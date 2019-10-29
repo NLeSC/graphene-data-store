@@ -7,8 +7,8 @@ Graphene+Flask+SQLAlchemy
 Create a virtual environment
 
 ```bash
-virtualenv env
-source env/bin/activate
+virtualenv venv
+source venv/bin/activate
 ```
 
 Install the dependencies:
@@ -31,6 +31,9 @@ and run queries!
 
 ## Example queries
 
+### Example-1
+---------------
+
 ```
 {
   allDatasets {
@@ -44,6 +47,9 @@ and run queries!
   }
 }
 ```
+
+### Example-2
+---------------
 
 ```
 query Dataset($id: ID!){
@@ -64,6 +70,9 @@ variables:
 }
 ```
 
+
+### Example-3
+---------------
 
 ```
 {
