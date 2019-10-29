@@ -41,7 +41,7 @@ and run queries!
       node {
         id
         name
-        data
+        raw
       }
     }
   }
@@ -56,8 +56,8 @@ query Dataset($id: ID!){
   dataset(id: $id) {
     id
     name
-    items {
-      keyData
+     data{
+      columns
     }
   }
 }
@@ -79,9 +79,29 @@ variables:
   dataset (id:"RGF0YXNldDox") {
     id
     name
-    items {
-      keyData
+    data {
+      columns
     }
   }
 }
 ```
+
+### Example-4 (WIP)
+---------------
+
+{
+  dataset (id:"RGF0YXNldDox") {
+    id
+    name
+    data {
+      columns
+      columnNames
+      columnTypes
+    }
+    histograms (nbins: 20) {
+      columns
+      freq
+    }
+    raw
+  }
+}
