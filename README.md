@@ -87,9 +87,9 @@ variables:
 }
 ```
 
-### Example-4 (WIP)
+### Example-4
 ---------------
-
+```
 {
   dataset (id:"RGF0YXNldDox") {
     id
@@ -106,3 +106,4 @@ variables:
     }
   }
 }
+```
